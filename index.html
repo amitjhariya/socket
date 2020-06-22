@@ -1,1 +1,130 @@
+<!doctype html>
+<html lang="en">
 
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Dashboard</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+
+
+
+    <link href="main.87c0748b313a1dda75f5.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="master.css">
+</head>
+
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+
+        <div class="app-main">
+
+
+
+
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div id="chatBox">
+                        <img id="chatIcon" src="chat.png" alt="" onclick="openchat()">
+                        <div id="chat_body" class="card-hover-shadow-2x mb-3 card">
+                            <div class="card-header-tab card-header">
+                                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                    <i class="header-icon lnr-printer icon-gradient bg-ripe-malin"> </i>Chat Box
+                                </div>
+                                <div class="btn-actions-pane-right text-capitalize actions-icon-btn">
+                                    <div class="btn-group dropdown">
+                                        <button type="button" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false" class="btn-icon btn-icon-only btn btn-link"><i
+                                                class="pe-7s-close-circle btn-icon-wrapper"
+                                                onclick="openchat()"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="scroll-area-lg">
+                                <div class="scrollbar-container">
+                                    <div class="p-2">
+                                        <div class="chat-wrapper p-1" id="output">
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="feedback"></div>
+                            <div id="emozi_pack">
+                                <a  title="GRINNING FACE" href="#" class="emoji" >&#128512;</a>
+                                
+
+                            </div>
+                            <div class="card-footer">
+                                <textarea id="message" placeholder="Write here and hit enter to send..." type="text"
+                                    class="form-control-sm form-control"></textarea>
+                                <img id="emozi-select" src="emozi/1.svg" alt="">
+                            </div>
+
+                            <button style="display: none;" id="send">Send</button>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function openchat() {
+            $('#chat_body').toggle()
+            $('#chatIcon').toggle()
+
+        }
+        var input = document.getElementById("message");
+        input.addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("send").click();
+                $(input).val('');
+                $("#emozi_pack").hide()
+            }
+        });
+
+        $(document).ready(function () {
+            for (var i = 128512; i < 128567; i++) {           
+                $('#emozi_pack').append('<a href="#" class="emoji" id=emz'+i+' >&#'+i+'</a>')
+            }
+
+            $('#emozi-select').click(function () {
+                $("#emozi_pack").toggle();
+            })
+
+            
+
+            var elements = document.getElementsByClassName("emoji");
+            var myFunction = function () {
+                var attribute = $(this).html();
+                console.log(attribute)                
+                var msg = $('#message').val()
+                $('#message').val(msg + attribute)
+            };
+
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].addEventListener('click', myFunction, false);
+            }
+
+
+
+
+        });
+
+
+
+    </script>
+    <script src="scripts/chat.js"></script>
+</body>
+
+</html>
